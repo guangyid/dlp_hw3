@@ -5,8 +5,6 @@ import numpy as np
 
 from vedacore.misc import registry
 from .compose import Compose
-
-
 @registry.register_module('pipeline')
 class AutoAugment(object):
     """Auto augmentation.

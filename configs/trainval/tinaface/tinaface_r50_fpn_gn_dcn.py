@@ -15,7 +15,10 @@ data = dict(
         min_size=1,
         offset=0,
         pipeline=[
-            dict(typename='LoadImageFromFile', to_float32=True),
+            dict(typename='LoadImageFromFile', to_float32=True,file_client_args = dict(
+                backend = 'lmdb',
+                db_path = data_root + 'WIDER_train'
+            )),
             dict(typename='LoadAnnotations', with_bbox=True),
             dict(typename='RandomSquareCrop',
                  crop_choice=[0.3, 0.45, 0.6, 0.8, 1.0]),
@@ -39,7 +42,10 @@ data = dict(
         min_size=1,
         offset=0,
         pipeline=[
-            dict(typename='LoadImageFromFile'),
+            dict(typename='LoadImageFromFile', to_float32=True,file_client_args = dict(
+                backend = 'lmdb',
+                db_path = data_root + 'WIDER_train'
+            )),
             dict(
                 typename='MultiScaleFlipAug',
                 img_scale=(1100, 1650),

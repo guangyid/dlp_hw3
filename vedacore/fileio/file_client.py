@@ -168,7 +168,7 @@ class LmdbBackend(BaseStorageBackend):
         Args:
             filepath (str | obj:`Path`): Here, filepath is the lmdb key.
         """
-        filepath = str(filepath)
+        filepath = str(filepath).replace('data\\WIDERFace\\','')
         with self._client.begin(write=False) as txn:
             value_buf = txn.get(filepath.encode('ascii'))
         return value_buf
@@ -214,7 +214,7 @@ class FileClient:
         'petrel': PetrelBackend,
     }
 
-    def __init__(self, backend='disk', **kwargs):
+    def __init__(self, backend='lmdb', **kwargs):
         if backend not in self._backends:
             raise ValueError(
                 f'Backend {backend} is not supported. Currently supported ones'
