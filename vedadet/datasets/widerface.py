@@ -31,13 +31,13 @@ class WIDERFaceDataset(XMLDataset):
         data_infos = []
         img_ids = fileio.list_from_file(ann_file)#train.txt
         self.img_ids = img_ids
-        
-        env = lmdb.open(osp(self.img_prefix,'Annotations'))
+        path = osp.join(self.img_prefix,'Annotations')
+        env = lmdb.open(path)
         with env.begin(write=False) as txn:
             for img_id in img_ids:
                 lmdb_xml_label = osp.join(self.img_prefix, 'Annotations',
-                                f'{img_id}').replace('/','\\')[15:]
-                # print(lmdb_xml_label)
+                                f'{img_id}').replace('/','\\').replace('\\data\\guangyid\\WIDERFace\\','')
+                # print(list(lmdb_xml_label))
                 bin = txn.get(lmdb_xml_label.encode())
                 # print(bin)
                 root = ET.fromstring(bin)

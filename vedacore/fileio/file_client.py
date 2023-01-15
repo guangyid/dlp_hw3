@@ -168,7 +168,7 @@ class LmdbBackend(BaseStorageBackend):
         Args:
             filepath (str | obj:`Path`): Here, filepath is the lmdb key.
         """
-        filepath = str(filepath).replace('data\\WIDERFace\\','')
+        filepath = str(filepath).replace('/','\\').replace('\\data\\guangyid\\WIDERFace\\','')
         with self._client.begin(write=False) as txn:
             value_buf = txn.get(filepath.encode('ascii'))
         return value_buf

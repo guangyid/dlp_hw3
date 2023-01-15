@@ -2,6 +2,12 @@
 __pycache__/
 *.py[cod]
 *$py.class
+# latex
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
 
 # C extensions
 *.so
@@ -135,5 +141,6 @@ tests/
 data/
 eval_dirs/
 nohup.out
-
+eval_tools/
 tools/eval_widerface
+paper/translate/main.log
