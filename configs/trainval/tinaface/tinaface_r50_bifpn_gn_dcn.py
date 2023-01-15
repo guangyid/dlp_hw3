@@ -6,7 +6,7 @@ img_norm_cfg = dict(
 size_divisor = 32
 
 data = dict(
-    samples_per_gpu=4,
+    samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
         typename=dataset_type,
@@ -28,12 +28,12 @@ data = dict(
                 contrast_range=(0.5, 1.5),
                 saturation_range=(0.5, 1.5),
                 hue_delta=18),
-            dict(typename='RandomFlip', flip_ratio=0.5),
+            dict(typename='RandomFlip', flip_ratio=0.5),#水平翻转
             dict(typename='Resize', img_scale=(640, 640), keep_ratio=False),
             dict(typename='Normalize', **img_norm_cfg),
             dict(typename='DefaultFormatBundle'),
             dict(typename='Collect', keys=['img', 'gt_bboxes',
-                                           'gt_labels', 'gt_bboxes_ignore']),
+                                           'gt_labels', 'gt_bboxes_ignore']),#生成dataset最后一步
         ]),
     val=dict(
         typename=dataset_type,
@@ -63,7 +63,6 @@ data = dict(
 
 # 2. model
 num_classes = 1
-strides = [4, 8, 16, 32, 64, 128]
 use_sigmoid = True
 scales_per_octave = 3
 ratios = [1.3]
@@ -81,23 +80,39 @@ model = dict(
         dcn=dict(typename='DCN', deformable_groups=1, fallback_on_stride=False),
         stage_with_dcn=(False, False, True, True),
         style='pytorch'),
+    # neck=[
+    #     dict(
+    #         typename='BIFPN',
+    #         in_channels=[256, 512, 1024, 2048],
+    #         out_channels=256,
+    #         start_level=0,
+    #         add_extra_convs='on_input',
+    #         num_outs=6,
+    #         norm_cfg=dict(typename='GN', num_groups=32, requires_grad=True),
+    #         upsample_cfg=dict(mode='bilinear')),#线性插值
+    #     dict(
+    #         typename='Inception',
+    #         in_channel=256,
+    #         num_levels=6,
+    #         norm_cfg=dict(typename='GN', num_groups=32, requires_grad=True),
+    #         share=True)
+    #     ],
     neck=[
         dict(
-            typename='FPN',
+            typename='BIFPN',
             in_channels=[256, 512, 1024, 2048],
             out_channels=256,
             start_level=0,
-            add_extra_convs='on_input',
             num_outs=6,
             norm_cfg=dict(typename='GN', num_groups=32, requires_grad=True),
-            upsample_cfg=dict(mode='bilinear')),
+            ),
         dict(
             typename='Inception',
             in_channel=256,
             num_levels=6,
             norm_cfg=dict(typename='GN', num_groups=32, requires_grad=True),
             share=True)
-    ],
+        ],    
     head=dict(
         typename='IoUAwareRetinaHead',
         num_classes=num_classes,
@@ -111,13 +126,13 @@ model = dict(
 # 3. engines
 meshgrid = dict(
     typename='BBoxAnchorMeshGrid',
-    strides=strides,
+    strides=[4, 8, 16, 32, 64, 128],
     base_anchor=dict(
         typename='BBoxBaseAnchor',
         octave_base_scale=2**(4 / 3),
         scales_per_octave=scales_per_octave,
         ratios=ratios,
-        base_sizes=strides))
+        base_sizes=[4, 8, 16, 32, 64, 128]))
 
 bbox_coder = dict(
     typename='DeltaXYWHBBoxCoder',
@@ -139,7 +154,9 @@ train_engine = dict(
             alpha=0.25,
             loss_weight=1.0),
         reg_decoded_bbox=True,
-        loss_bbox=dict(typename='DIoULoss', loss_weight=2.0),
+        loss_bbox=dict(
+            typename='DIoULoss', 
+            loss_weight=2.0),
         loss_iou=dict(
             typename='CrossEntropyLoss',
             use_sigmoid=True,
@@ -194,7 +211,7 @@ hooks = [
 
 # 5. work modes
 modes = ['train']#, 'val']
-max_epochs = 630
+max_epochs = 105
 
 # 6. checkpoint
 weights = dict(

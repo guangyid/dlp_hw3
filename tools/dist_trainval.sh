@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 if (($# < 2)); then
     echo "Uasage: bash tools/dist_trainval.sh config_file gpus"
