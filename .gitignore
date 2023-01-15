@@ -144,3 +144,4 @@ nohup.out
 eval_tools/
 tools/eval_widerface
 paper/translate/main.log
+*.pth
