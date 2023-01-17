@@ -6,7 +6,7 @@ import vedacore.fileio as fileio
 from vedacore.misc import registry
 from .xml_style import XMLDataset
 
-
+# ---------------------hgy----------------------
 @registry.register_module('dataset')
 class WIDERFaceDataset(XMLDataset):
     """Reader for the WIDER Face dataset in PASCAL VOC format.

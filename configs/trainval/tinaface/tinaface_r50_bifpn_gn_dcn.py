@@ -1,3 +1,4 @@
+# -------------------hgy-------------------------
 # 1. data
 dataset_type = 'WIDERFaceDataset'
 data_root = '/data/guangyid/WIDERFace/'

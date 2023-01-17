@@ -75,7 +75,7 @@ class XMLDataset(CustomDataset):
                     break
 
         return subset_data_infos
-
+# -----------------hgy------------------------
     def get_ann_info(self, idx):
         """Get annotation from XML file by index.
 
