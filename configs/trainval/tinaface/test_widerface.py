@@ -23,7 +23,7 @@ def parse_args():
 
 def write_txt(save_folder, img_name, dets):
 
-    save_name = osp.join(save_folder, img_name[:-4] + ".txt")
+    save_name = osp.join(save_folder, img_name + ".txt")
     dirname = osp.dirname(save_name)
     if not osp.isdir(dirname):
         os.makedirs(dirname)

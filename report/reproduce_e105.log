@@ -321,7 +321,7 @@ missing keys in source state_dict: backbone.gn1.weight, backbone.gn1.bias, backb
 2023-01-12 03:55:19,424 - vedadet - INFO - Epoch [20][600/1611] lr: 0.001139, loss_cls: 0.1239, loss_bbox: 0.2674, loss_iou: 0.3880, loss: 0.7793
 2023-01-12 03:58:16,056 - vedadet - INFO - Epoch [20][700/1611] lr: 0.001139, loss_cls: 0.1579, loss_bbox: 0.4536, loss_iou: 0.5242, loss: 1.1357
 2023-01-12 04:02:40,642 - vedadet - INFO - Epoch [20][800/1611] lr: 0.001139, loss_cls: 0.1327, loss_bbox: 0.4026, loss_iou: 0.4786, loss: 1.0140
-2023-01-12 04:04:38,620 - vedadet - INFO - Epoch [20][900/1611] lr: 0.001139, loss_cls: 0.1600, loss_bbox: 0.3903, loss_iou: 0.4918, loss: 1.0420
+2023-01-12 04:04:38,620 - vedadet - INFO - Epoch [20][900/1611] lr: 0.001139, loss_cls: 0.1601, loss_bbox: 0.3903, loss_iou: 0.4918, loss: 1.0420
 2023-01-12 04:06:29,410 - vedadet - INFO - Epoch [20][1000/1611] lr: 0.001139, loss_cls: 0.1685, loss_bbox: 0.4383, loss_iou: 0.4905, loss: 1.0973
 2023-01-12 04:08:23,160 - vedadet - INFO - Epoch [20][1100/1611] lr: 0.001139, loss_cls: 0.1185, loss_bbox: 0.3707, loss_iou: 0.4475, loss: 0.9367
 2023-01-12 04:10:18,809 - vedadet - INFO - Epoch [20][1200/1611] lr: 0.001139, loss_cls: 0.1839, loss_bbox: 0.4701, loss_iou: 0.5150, loss: 1.1689
